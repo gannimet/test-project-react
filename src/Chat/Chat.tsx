@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
+import { useWebSocket } from '../hooks/use-websocket';
 import './Chat.css';
 
 type ChatMessage = {
@@ -8,39 +9,26 @@ type ChatMessage = {
 };
 
 function Chat() {
-    const ws = useRef<WebSocket | null>(null);
-    const [isConnected, setIsConnected] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([]);
 
-    useEffect(() => {
-        ws.current = new WebSocket('ws://localhost:3000');
+    const onWebSocketMessage = (event: MessageEvent) => {
+        const content = JSON.parse(event.data).message;
 
-        ws.current.onopen = () => {
-            setIsConnected(true);
+        const newMessage: ChatMessage = {
+            id: crypto.randomUUID(),
+            sender: 'server',
+            content,
         };
 
-        ws.current.onmessage = (event) => {
-            const content = JSON.parse(event.data).message;
+        setMessages((previousMessages) => {
+            return [...previousMessages, newMessage];
+        });
+    };
 
-            const newMessage: ChatMessage = {
-                id: crypto.randomUUID(),
-                sender: 'server',
-                content,
-            };
-
-            setMessages((previousMessages) => {
-                return [...previousMessages, newMessage];
-            });
-        };
-
-        return () => {
-            if (ws.current) {
-                ws.current.close();
-                ws.current = null;
-                setIsConnected(false);
-            }
-        };
-    }, []);
+    const { isConnected } = useWebSocket({
+        url: 'ws://localhost:3000',
+        onMessage: onWebSocketMessage,
+    });
 
     return (
         <>
