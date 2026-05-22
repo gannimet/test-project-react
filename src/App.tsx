@@ -1,38 +1,54 @@
-import { useState } from "react";
-import "./App.css";
-import Chat from "./Chat/Chat";
+import { useState } from 'react';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import './App.css';
+import Chat from './Chat/Chat';
+import ColorPicker from './ColorPicker/ColorPicker';
 
 function App() {
-  const [randomNumber, setRandomNumber] = useState(0);
+    const [randomNumber, setRandomNumber] = useState(0);
 
-  const fetchRandomRumber = async () => {
-    const url = "http://localhost:3000/randomnumber";
+    const fetchRandomRumber = async () => {
+        const url = 'http://localhost:3000/randomnumber';
 
-    const response = await fetch(url);
+        const response = await fetch(url);
 
-    if (response.ok) {
-      const result = await response.json();
-      setRandomNumber(result.value);
-    }
-  };
+        if (response.ok) {
+            const result = await response.json();
+            setRandomNumber(result.value);
+        }
+    };
 
-  return (
-    <>
-      <div className="main-content">
-        <button onClick={() => fetchRandomRumber()}>Get random number</button>
-        <p>{randomNumber}</p>
-        <p>
-          <code>
-            npm create vite@latest test-project-react -- --template react-ts
-          </code>
-        </p>
-      </div>
+    return (
+        <>
+            <BrowserRouter>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/chat">Chat</Link>
+                        </li>
+                        <li>
+                            <Link to="/color-picker">Color Picker</Link>
+                        </li>
+                    </ul>
+                </nav>
 
-      <aside className="sidebar">
-        <Chat />
-      </aside>
-    </>
-  );
+                <div className="main-content">
+                    <button onClick={() => fetchRandomRumber()}>Get random number</button>
+                    <p>{randomNumber}</p>
+                    <p>
+                        <code>
+                            npm create vite@latest test-project-react -- --template react-ts
+                        </code>
+                    </p>
+                </div>
+
+                <Routes>
+                    <Route path="/chat" element={<Chat />} />
+                    <Route path="/color-picker" element={<ColorPicker />} />
+                </Routes>
+            </BrowserRouter>
+        </>
+    );
 }
 
 export default App;
