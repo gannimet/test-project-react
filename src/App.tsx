@@ -3,6 +3,7 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Chat from './Chat/Chat';
 import ColorPicker from './ColorPicker/ColorPicker';
+import TodoPage from './TodoPage/TodoPage';
 
 function App() {
     const [randomNumber, setRandomNumber] = useState(0);
@@ -29,6 +30,9 @@ function App() {
                         <li>
                             <Link to="/color-picker">Color Picker</Link>
                         </li>
+                        <li>
+                            <Link to="/todos">Todo List</Link>
+                        </li>
                     </ul>
                 </nav>
 
@@ -45,6 +49,7 @@ function App() {
                 <Routes>
                     <Route path="/chat" element={<Chat />} />
                     <Route path="/color-picker" element={<ColorPicker />} />
+                    <Route path="/todos" element={<TodoPage />} />
                 </Routes>
             </BrowserRouter>
         </>
