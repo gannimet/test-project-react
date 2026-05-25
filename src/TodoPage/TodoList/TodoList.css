@@ -1,0 +1,14 @@
+.todo-list {
+    list-style: none;
+    padding: 0;
+
+    .list-item {
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+
+        &:nth-child(even) {
+            background-color: #eee;
+        }
+    }
+}

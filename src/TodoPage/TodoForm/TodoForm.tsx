@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import type { TodoItem } from '../TodoItem';
+import './TodoForm.css';
 
 export type TodoFormProps = {
     onAddTodoItem: (todoItem: TodoItem) => void;
@@ -19,7 +20,7 @@ function TodoForm({ onAddTodoItem }: TodoFormProps) {
     };
 
     return (
-        <form onSubmit={addButtonClicked}>
+        <form onSubmit={addButtonClicked} className="todo-form">
             <label htmlFor="newItemName">New item:</label>
             <input
                 id="newItemName"

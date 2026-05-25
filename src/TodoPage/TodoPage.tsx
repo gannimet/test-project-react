@@ -2,6 +2,7 @@ import { useState } from 'react';
 import TodoForm from './TodoForm/TodoForm';
 import type { TodoItem } from './TodoItem';
 import TodoList from './TodoList/TodoList';
+import './TodoPage.css';
 
 function TodoPage() {
     const [todoItems, setTodoItems] = useState<TodoItem[]>([
@@ -23,9 +24,11 @@ function TodoPage() {
         <>
             <h1>Todo List</h1>
 
-            <TodoForm onAddTodoItem={addTodoItem} />
+            <div className="todo-group">
+                <TodoForm onAddTodoItem={addTodoItem} />
 
-            <TodoList todoItems={todoItems} onItemDeleted={deleteItem} />
+                <TodoList todoItems={todoItems} onItemDeleted={deleteItem} />
+            </div>
         </>
     );
 }

@@ -1,0 +1,8 @@
+.todo-form {
+    display: flex;
+    column-gap: 8px;
+    padding: 16px;
+    background-color: #ddd;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}

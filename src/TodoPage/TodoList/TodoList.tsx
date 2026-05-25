@@ -1,4 +1,5 @@
 import type { TodoItem } from '../TodoItem';
+import './TodoList.css';
 
 export type TodoListProps = {
     todoItems: TodoItem[];
@@ -16,7 +17,7 @@ function TodoList({ todoItems, onItemDeleted }: TodoListProps) {
                             className="list-item-delete-button"
                             onClick={() => onItemDeleted(todoItem.id)}
                         >
-                            X
+                            Löschen
                         </button>
                     </li>
                 );
