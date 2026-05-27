@@ -4,6 +4,8 @@ import './App.css';
 import Chat from './Chat/Chat';
 import ColorPicker from './ColorPicker/ColorPicker';
 import TodoPage from './TodoPage/TodoPage';
+import UserDetails from './UserList/UserDetails/UserDetails';
+import UserList from './UserList/UserList';
 
 function App() {
     const [randomNumber, setRandomNumber] = useState(0);
@@ -33,6 +35,9 @@ function App() {
                         <li>
                             <Link to="/todos">Todo List</Link>
                         </li>
+                        <li>
+                            <Link to="/users">User List</Link>
+                        </li>
                     </ul>
                 </nav>
 
@@ -50,6 +55,8 @@ function App() {
                     <Route path="/chat" element={<Chat />} />
                     <Route path="/color-picker" element={<ColorPicker />} />
                     <Route path="/todos" element={<TodoPage />} />
+                    <Route path="/users" element={<UserList />} />
+                    <Route path="/users/:userId" element={<UserDetails />} />
                 </Routes>
             </BrowserRouter>
         </>
