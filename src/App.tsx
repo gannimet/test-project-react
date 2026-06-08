@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Chat from './Chat/Chat';
+import Collection from './Collection/Collection';
 import ColorPicker from './ColorPicker/ColorPicker';
 import TodoPage from './TodoPage/TodoPage';
 import UserDetails from './UserList/UserDetails/UserDetails';
@@ -38,6 +39,9 @@ function App() {
                         <li>
                             <Link to="/users">User List</Link>
                         </li>
+                        <li>
+                            <Link to="/collection">Collection</Link>
+                        </li>
                     </ul>
                 </nav>
 
@@ -57,6 +61,7 @@ function App() {
                     <Route path="/todos" element={<TodoPage />} />
                     <Route path="/users" element={<UserList />} />
                     <Route path="/users/:userId" element={<UserDetails />} />
+                    <Route path="/collection" element={<Collection />} />
                 </Routes>
             </BrowserRouter>
         </>
