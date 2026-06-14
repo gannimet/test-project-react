@@ -1,22 +1,24 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useWebSocket } from '../hooks/use-websocket';
 import './Chat.css';
 
 type ChatMessage = {
     id: string;
-    sender: 'client' | 'server';
+    sender: string;
     content: string;
 };
 
 function Chat() {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
+    const chatInputRef = useRef<HTMLInputElement>(null);
+    const [currentChatMessage, setCurrentChatMessage] = useState('');
 
     const onWebSocketMessage = (event: MessageEvent) => {
-        const content = JSON.parse(event.data).message;
+        const { content, sender } = JSON.parse(event.data);
 
         const newMessage: ChatMessage = {
             id: crypto.randomUUID(),
-            sender: 'server',
+            sender,
             content,
         };
 
@@ -25,10 +27,15 @@ function Chat() {
         });
     };
 
-    const { isConnected } = useWebSocket({
+    const { socket, isConnected } = useWebSocket({
         url: 'ws://localhost:3000',
         onMessage: onWebSocketMessage,
     });
+
+    const sendMessage = (event: React.SubmitEvent) => {
+        event.preventDefault();
+        socket?.send(currentChatMessage);
+    };
 
     return (
         <>
@@ -44,6 +51,15 @@ function Chat() {
                     );
                 })}
             </ul>
+
+            <form className="chat-input" onSubmit={sendMessage}>
+                <input
+                    ref={chatInputRef}
+                    value={currentChatMessage}
+                    onChange={(event) => setCurrentChatMessage(event.target.value)}
+                />
+                <button>Send</button>
+            </form>
         </>
     );
 }

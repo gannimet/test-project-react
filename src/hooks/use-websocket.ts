@@ -33,7 +33,7 @@ export function useWebSocket({ url, onMessage }: UseWebSocketOptions) {
     }, [url]);
 
     return {
-        ws,
+        socket: ws.current,
         isConnected,
     };
 }
