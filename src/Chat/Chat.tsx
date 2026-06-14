@@ -38,14 +38,14 @@ function Chat() {
     };
 
     return (
-        <>
-            <div>Status: {isConnected ? '🟢 Verbunden' : '🔴 Getrennt'}</div>
+        <div className="chat-container">
+            <div className="status-bar">Status: {isConnected ? '🟢 Verbunden' : '🔴 Getrennt'}</div>
 
             <ul className="message-list">
                 {messages.map(({ id, sender, content }) => {
                     return (
                         <li className="message-item" key={id}>
-                            <span className="message-sender">{sender}:</span>
+                            <span className="message-sender">{sender}:&nbsp;</span>
                             <span className="message-content">{content}</span>
                         </li>
                     );
@@ -60,7 +60,7 @@ function Chat() {
                 />
                 <button>Send</button>
             </form>
-        </>
+        </div>
     );
 }
 
