@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Chat from './Chat/Chat';
 import Collection from './Collection/Collection';
@@ -48,14 +48,10 @@ function App() {
                 <div className="main-content">
                     <button onClick={() => fetchRandomRumber()}>Get random number</button>
                     <p>{randomNumber}</p>
-                    <p>
-                        <code>
-                            npm create vite@latest test-project-react -- --template react-ts
-                        </code>
-                    </p>
                 </div>
 
                 <Routes>
+                    <Route path="/" element={<Navigate to="/todos" replace />} />
                     <Route path="/chat" element={<Chat />} />
                     <Route path="/color-picker" element={<ColorPicker />} />
                     <Route path="/todos" element={<TodoPage />} />
